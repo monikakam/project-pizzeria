@@ -89,17 +89,19 @@
 
     initAccordion(){
       const thisProduct = this;
-      /*find the clickable trigger (the element that should react to clicking) - naglowek*/
-      const clickableTrigger = document.querySelector(select.menuProduct.clickable);
+
+      /* find the clickable trigger (the element that should react to clicking) */
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
 
       /*START: add event listener to clickable trigger on event click*/
       clickableTrigger.addEventListener('click', function(event){
         /*prevent default action for event*/
         event.preventDefault();
         /*find active product (product that has active class)*/
-        const activeProduct = document.querySelectorAll('.product.active');
+        const activeProduct = document.querySelector('.product.active');
+        console.log(activeProduct);
         /*if there is active product and it's not thisProduct.element, remove class active from it*/
-        if(activeProduct !== thisProduct.element) {activeProduct.classList.remove('active');}
+        if(activeProduct !== null && activeProduct !== thisProduct.element) {activeProduct.classList.remove('active');}
         /*toggle active class on thisProduct.element*/
         thisProduct.element.classList.toggle('active');
       });
@@ -107,7 +109,7 @@
     
     initOrderForm(){
       const thisProduct = this;
-      console.log(initOrderForm);
+      console.log('initOrderForm');
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -126,7 +128,7 @@
 
     processOrder(){
       const thisProduct = this;
-      console.log(processOrder);
+      console.log('processOrder');
       //convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
@@ -155,30 +157,30 @@
   }
 
 
-  const app = {
-    initMenu: function() {
-      const thisApp = this;
-      console.log('thisApp.data:', thisApp.data);
-      for(let productData in thisApp.data.products){
-        new Product(productData, thisApp.data.products[productData]);
-      }
+  const app = {//ok
+    initMenu: function() {//ok
+      const thisApp = this;//ok
+      console.log('thisApp.data:', thisApp.data);//ok
+      for(let productData in thisApp.data.products){//ok
+        new Product(productData, thisApp.data.products[productData]);//ok
+      }//ok
     },    
-    initData: function(){
-      const thisApp = this;
-      thisApp.data = dataSource;
-    },
-    init: function(){
-      const thisApp = this;
+    initData: function(){//ok
+      const thisApp = this;//ok
+      thisApp.data = dataSource;//ok
+    },//ok
+    init: function(){//ok
+      const thisApp = this;//ok
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
     
-      thisApp.initData();
-      thisApp.initMenu();
-    },    
-  };
+      thisApp.initData();//ok
+      thisApp.initMenu();//ok
+    },    //ok
+  }; //ok
   
-  app.init(); // do sprawdzenia czy to powinno tu byc
+  app.init(); 
 }
