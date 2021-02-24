@@ -85,6 +85,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -148,14 +149,28 @@
 
           const option = param.options[optionId];
           
+          const selector = '.' + paramId + '-' + optionId;
 
+          const image = thisProduct.imageWrapper.querySelector(selector);//znalezienie obrazka
+          
+          if(formData[paramId] && formData[paramId].includes(optionId)) {
+            if(image !== null) {
+              image.classList.add(classNames.menuProduct.imageVisible);
+            }
+          } else {
+            //If option is not checked remove active class from img
+            if(image !== null) {
+              image.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }
+          
           //check if there is param with a name of paramId in formData and if it includes optionId
           if(formData[paramId] && formData[paramId].includes(optionId)){
             //check if the option is not default
             if(!option.default){
               //add option price to price variable
               price = price + option.price;
-              console.log(option.price);
+              
             }
             
           } else {
