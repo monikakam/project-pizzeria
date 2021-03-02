@@ -188,6 +188,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -253,6 +254,7 @@
       price *= thisProduct.amountWidget.value;
 
       // update calculated price in the HTML
+      thisProduct.priceSingle = price;
       thisProduct.priceElem.innerHTML = price;
 
     }
@@ -266,6 +268,69 @@
         thisProduct.processOrder();
       });
     }
+
+    addToCart(){
+      const thisProduct = this;
+
+      app.cart.add(thisProduct.prepareCartProduct);
+    }
+
+    prepareCartProduct(){
+      const thisProduct = this;
+
+      const productSummary = {};
+
+      productSummary.id = thisProduct.id;
+      productSummary.name = thisProduct.name;
+      productSummary.amount = thisProduct.amount;
+
+      priceSingle = thisProduct(thisProduct.priceSingle);
+      price = priceSingle * thisPrice.amountWidget.value;
+
+      params = {params};
+
+      return productSummary;
+      
+    }
+
+    prepareCartProductParams(){
+      const thisProduct = this;
+  
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      
+      const params ={};
+      
+      //for vry category (param)
+      for(let paramId in thisProduct.data.params) {
+
+        const param = thisProduct.data.params[paramId];
+        //create category param in params const eg. params = {ingidients: {name: 'Ingridients', options: {}}}
+        params[paramId] = {
+          name: param.label,
+          options:{}
+        }
+        // for every option in this category
+        
+        for(let optionId in param.options) {
+          
+          const option = param.options[optionId];
+          
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+          if(optionSelected){
+
+            params[paramId].options += optionSelected; 
+          }
+
+        }
+
+      }
+          
+            return params;          
+
+     }
+
+      
 
   }
 
@@ -362,6 +427,7 @@
 
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.templateOf.cartProducts);
 
     }
 
@@ -373,6 +439,21 @@
 
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+    }
+
+    add(menuProduct){
+      const thisCart = this;
+      
+      /* Generate HTML based on template */
+      const generatedHTML = templates.cartProduct(menuProduct);
+
+      /* create element DOML */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+
+      /* add element DOM to thisCart.dom.productList */
+      generatedDOM.appendChild(thisCart.dom.productList);
+
+      //console.log('adding product', menuProduct);
     }
   }
 
