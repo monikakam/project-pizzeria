@@ -53,7 +53,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -65,7 +65,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -78,7 +78,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     // CODE ADDED START
@@ -135,7 +135,7 @@
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-      //console.log(thisProduct.amountWidgetElem);
+      console.log(thisProduct.amountWidgetElem);
     }
 
     initAccordion(){
@@ -273,8 +273,6 @@
     constructor(element){
       const thisWidget = this;
 
-
-
       thisWidget.getElements(element);
 
       thisWidget.value = settings.amountWidget.defaultValue;
@@ -283,8 +281,8 @@
 
       thisWidget.initActions();
 
-      //console.log('AmountWidget:', thisWidget);
-      //console.log('constructor arguments:', element);
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
     }
 
     getElements(element){
@@ -345,12 +343,16 @@
   }
 
   class Cart{
-    constructor(element){
+    constructor(element) {
       const thisCart = this;
 
       thisCart.products = [];
+
       thisCart.getElements(element);
-      //console.log('new Cart', thisCart);
+
+      thisCart.initActions();
+
+      console.log('new Cart', thisCart);
     }
 
     getElements(element){
@@ -359,6 +361,18 @@
       thisCart.dom = {};
 
       thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+    }
+
+    initActions(){
+      const thisCart = this;
+
+      thisCart.dom.toggleTrigger.addEventListener('click', function(event){
+        event.preventDefault();
+
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
     }
   }
 
@@ -394,11 +408,11 @@
       //console.log('settings:', settings);
       //console.log('templates:', templates);
 
-
       thisApp.initData();
       thisApp.initMenu();
       thisApp.initCart();
     },
+
   };
 
   app.init();
