@@ -70,11 +70,11 @@
           <div class="product__wrapper"> <!-- details -->
             <form class="product__order">
               <ul class="product__params"> <!-- params -->
-                {{#each params as |param paramId| }}
+                {{#each params as |param paramId| }}<!--petla iterujaca po wszystkich elementach obiektu params-->
                 {{#ifEquals type "checkboxes"}}
                 <li> <!-- checkboxes -->
-                  <h3 class="product__params-title">{{{ label }}}</h3>
-                  {{#each options}}
+                  <h3 class="product__params-title">{{{ label }}}</h3><!--wyswietlamy label parametru-->
+                  {{#each options}}<!--petla iterujaca po wszystkich opcjach tego parametru-->
                   <div class="checkbox"> <!-- checkbox -->
                     <label>
                       <input type="checkbox" name="{{ paramId }}" value="{{ @key }}" id="{{ @key }}" {{#if default}}checked{{/if}}>
@@ -115,7 +115,7 @@
                 <div class="widget-amount"> <!-- widget-amount -->
                   <h3 class="product__params-title">Select quantity</h3>
                   <a class="btn-quantity" href="#less"><i class="fas fa-minus"></i></a>
-                  <input type="text" name="amount" value="1">
+                  <input type="text" name="amount">
                   <a class="btn-quantity" href="#more"><i class="fas fa-plus"></i></a>
                 </div>
                 <p class="product__total-price">
@@ -128,7 +128,7 @@
             </form>
             <div class="product__images {{ class }}"> <!-- images -->
               {{#each images}}
-              {{{ this }}}
+              {{{ this }}}<!--slowo this oznacza pojedynczy element, po ktorym iteruje petla; potrojne nawiasy bo obrazki a nie tekst-->
               {{/each}}
             </div>
           </div>
