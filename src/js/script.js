@@ -36,7 +36,7 @@
     cart: {
       productList: '.cart__order-summary',
       toggleTrigger: '.cart__summary',
-      totalNumber: `.cart__total-number`,
+      totalNumber: '.cart__total-number',
       totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
       subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
       deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
@@ -94,15 +94,10 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
-
       thisProduct.getElements();
-
       thisProduct.initAccordion();
-
       thisProduct.initOrderForm();
-
       thisProduct.initAmountWidget();
-
       thisProduct.processOrder();
 
       //console.log('new Product:', thisProduct);
@@ -431,7 +426,7 @@
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.templateOf.cartProducts);
       thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
-      thisCart.dom.subTotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelector(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
 
@@ -499,9 +494,12 @@
     
     remove(cartProduct) {
       const thisCart = this;
+      //find an index of element
       const productIndex = thisCart.products.indexOf(cartProduct);
       thisCart.products.splice(productIndex, 1);
+      //remove info about specific product from the basket
       cartProduct.dom.wrapper.remove();
+      
       thisCart.update();
 
     }
