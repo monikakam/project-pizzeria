@@ -454,9 +454,14 @@
     add(menuProduct){
 
       const thisCart = this;
+      
+      //create HTML code
       const generatedHTML = templates.cartProduct(menuProduct);
+
+      //change html code to DOM element
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
+      //add DOM element to thisCart.dom.productList
       thisCart.dom.productList.appendChild(generatedDOM);
       //console.log('adding product', menuProduct);
 
