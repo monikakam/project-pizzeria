@@ -643,7 +643,7 @@
       const thisApp = this;
 
       thisApp.data = {};
-      const url = settings.db.url + '/' + settings.db.product;
+      const url = settings.db.url + '/' + settings.db.product;//adres endpointu
 
       fetch(url)
         .then(function(rawResponse){
