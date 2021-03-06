@@ -1,4 +1,4 @@
-const dataSource = {}; // eslint-disable-line no-unused-vars
+const dataSource = {};// eslint-disable-line no-unused-vars
 
 dataSource.products = {
   cake: {
